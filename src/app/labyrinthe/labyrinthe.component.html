@@ -1,0 +1,6 @@
+<div class="ligne" *ngFor="let ligne of tiles">
+  <div class="ligne" *ngFor="let tile of ligne">
+    <pacman-mur *ngIf="!tile.startsWith('P')" [direction]="tile"></pacman-mur>
+    <pacman-pacgum *ngIf="tile.startsWith('P')" [super]="tile.substring(1)"></pacman-pacgum>
+  </div>
+</div>
