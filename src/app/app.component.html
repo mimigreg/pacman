@@ -1,12 +1,10 @@
 <div>
-  <div class="ligne">
-  <pacman-pacman direction="H"></pacman-pacman>
-  <pacman-pacman direction="B"></pacman-pacman>
-  <pacman-pacman direction="G"></pacman-pacman>
-  <pacman-pacman direction="D"></pacman-pacman>
-  <pacman-fantome *ngFor="let unFantome of fantomes" [couleur]="unFantome.couleur"></pacman-fantome>
-  <pacman-pacgum super="N"></pacman-pacgum>
-  <pacman-pacgum super="S"></pacman-pacgum>
-  </div>
   <pacman-labyrinthe></pacman-labyrinthe>
+  <div class="ligne">
+    <pacman-pacman direction="H"></pacman-pacman>
+    <pacman-pacman direction="B"></pacman-pacman>
+    <pacman-pacman direction="G"></pacman-pacman>
+    <pacman-pacman direction="D"></pacman-pacman>
+    <pacman-fantome *ngFor="let unFantome of fantomes" [couleur]="unFantome.couleur"></pacman-fantome>
+  </div>
 </div>
