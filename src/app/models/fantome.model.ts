@@ -11,7 +11,7 @@ export class FantomeModel {
     couleur: string,
     coordoneesInitiale: Coordonees,
     coordoneesRode: Coordonees,
-    carractere: (fantome: Coordonees, pacman: Coordonees, rode: Coordonees, ser: FantomeService, option?: Coordonees) => number
+    carractere: (fantome: FantomeModel, pacman: Coordonees, ser: FantomeService, option?: Coordonees) => number
   ) {
     this.couleur = couleur;
     this.coordonees = coordoneesInitiale;
@@ -20,7 +20,7 @@ export class FantomeModel {
     this.calculNextDirection = carractere;
   }
 
-  calculNextDirection(fantome: Coordonees, pacman: Coordonees, rode: Coordonees, ser: FantomeService, option?: Coordonees): number {
+  calculNextDirection(fantome: FantomeModel, pacman: Coordonees, ser: FantomeService, option?: Coordonees): number {
     throw new Error('Pas de caractère défini');
   }
 }

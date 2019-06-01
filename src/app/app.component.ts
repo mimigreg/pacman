@@ -3,7 +3,8 @@ import { FantomeModel } from './models/fantome.model';
 import { Coordonees } from './models/coordonees.model';
 import { FantomeService } from './fantome.service';
 import { CarteService } from './carte.service';
-import { of, timer, Observable } from 'rxjs';
+import { of, timer } from 'rxjs';
+import { concatMap, delay } from 'rxjs/operators';
 
 @Component({
   selector: 'pacman-root',
@@ -49,12 +50,23 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Calcul du mouvement des fantomes
     timer(0, 200).subscribe(() => {
       for (const fantome of this.fantomes) {
         fantome.coordonees = this.fantomeService.projetePosition(
           fantome.coordonees,
-          fantome.calculNextDirection(fantome.coordonees, this.pacman, fantome.coordoneesRode, this.fantomeService, this.blinky.coordonees)
+          fantome.calculNextDirection(fantome, this.pacman, this.fantomeService, this.blinky.coordonees)
         );
+      }
+    });
+    // Changement de mode rode/poursuite
+    of(7000, 20000, 7000, 20000, 5000, 20000, 5000).pipe(
+      concatMap(val => of('change').pipe(delay(val)))
+    ).subscribe((val) => {
+      for (const fantome of this.fantomes) {
+        fantome.poursuitMode = fantome.poursuitMode ? 0 : 1 ;
+        const oppositeDirection = fantome.coordonees.direction + 180;
+        fantome.coordonees.direction = (oppositeDirection) >= 360 ? fantome.coordonees.direction - 180 : fantome.coordonees.direction + 180;
       }
     });
   }

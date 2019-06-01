@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Coordonees } from './models/coordonees.model';
 import { CarteService } from './carte.service';
+import { FantomeModel } from './models/fantome.model';
 
 @Injectable({
   providedIn: 'root'
@@ -94,34 +95,45 @@ export class FantomeService {
     }
   }
 
-  public chasseur(fantome: Coordonees, pacman: Coordonees, rode: Coordonees, ser: FantomeService, option?: Coordonees): number { // blinky
-    const cible = pacman;
-//    console.debug('rouge', cible);
-    return ser.choisiLaPlusCourteDirection(fantome, cible, ser.calculeDirectionsPossible(fantome));
+  public chasseur(fantome: FantomeModel, pacman: Coordonees, ser: FantomeService, option?: Coordonees): number { // blinky
+    let cible = fantome.coordoneesRode;
+    if (fantome.poursuitMode === 1) {
+      cible = pacman;
+    }
+    //    console.debug('rouge', cible);
+    return ser.choisiLaPlusCourteDirection(fantome.coordonees, cible, ser.calculeDirectionsPossible(fantome.coordonees));
   }
 
-  public piegeur(fantome: Coordonees, pacman: Coordonees, rode: Coordonees, ser: FantomeService, option?: Coordonees): number { // pinky
-    const cible = ser.projetePosition(pacman, pacman.direction, 4);
-//    console.debug('rose', cible);
-    return ser.choisiLaPlusCourteDirection(fantome, cible, ser.calculeDirectionsPossible(fantome));
+  public piegeur(fantome: FantomeModel, pacman: Coordonees, ser: FantomeService, option?: Coordonees): number { // pinky
+    let cible = fantome.coordoneesRode;
+    if (fantome.poursuitMode === 1) {
+      cible = ser.projetePosition(pacman, pacman.direction, 4);
+    }
+    //    console.debug('rose', cible);
+    return ser.choisiLaPlusCourteDirection(fantome.coordonees, cible, ser.calculeDirectionsPossible(fantome.coordonees));
   }
 
-  public timide(fantome: Coordonees, pacman: Coordonees, rode: Coordonees, ser: FantomeService, option?: Coordonees): number { // inky
-    const projetedPacman = ser.projetePosition(pacman, pacman.direction, 2);
-    // option devrait etre les coordonees de blinky
-    const cible: Coordonees = {
-      latitude: option.latitude + 2 * (projetedPacman.latitude - option.latitude),
-      longitude: pacman.longitude + 2 * (projetedPacman.longitude - option.longitude)
-    };
+  public timide(fantome: FantomeModel, pacman: Coordonees, ser: FantomeService, option?: Coordonees): number { // inky
+    let cible = fantome.coordoneesRode;
+    if (fantome.poursuitMode === 1) {
+      const projetedPacman = ser.projetePosition(pacman, pacman.direction, 2);
+      // option devrait etre les coordonees de blinky
+      cible = {
+        latitude: option.latitude + 2 * (projetedPacman.latitude - option.latitude),
+        longitude: pacman.longitude + 2 * (projetedPacman.longitude - option.longitude)
+      };
+    }
 //    console.debug('bleu', cible);
-    return ser.choisiLaPlusCourteDirection(fantome, cible, ser.calculeDirectionsPossible(fantome));
+    return ser.choisiLaPlusCourteDirection(fantome.coordonees, cible, ser.calculeDirectionsPossible(fantome.coordonees));
   }
 
-  public dedaignant(fantome: Coordonees, pacman: Coordonees, rode: Coordonees, ser: FantomeService, option?: Coordonees): number { // clyde
-    let cible = rode;
-    if (ser.cacluleLeNombreDeCases(fantome, pacman) > 8) { cible = pacman; }
+  public dedaignant(fantome: FantomeModel, pacman: Coordonees, ser: FantomeService, option?: Coordonees): number { // clyde
+    let cible = fantome.coordoneesRode;
+    if (fantome.poursuitMode === 1) {
+      if (ser.cacluleLeNombreDeCases(fantome.coordonees, pacman) > 8) { cible = pacman; }
+    }
 //    console.debug('orange', cible);
-    return ser.choisiLaPlusCourteDirection(fantome, cible, ser.calculeDirectionsPossible(fantome));
+    return ser.choisiLaPlusCourteDirection(fantome.coordonees, cible, ser.calculeDirectionsPossible(fantome.coordonees));
   }
 
 }
