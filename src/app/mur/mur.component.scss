@@ -78,3 +78,15 @@
   width:16px;
   height:7px;
 }
+
+.WW::after {
+  content:"";
+  position:absolute;
+  border-top-style: solid;
+  border-width: 2px;
+  border-color: #FFCCCC;
+  top:7px;
+  left:0px;
+  width:16px;
+  height:7px;
+}
