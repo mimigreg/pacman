@@ -10,8 +10,13 @@ export class FantomeService {
 
   constructor(private carteService: CarteService) { }
 
-  public choisiLaPlusCourteDirection(positionActuelle: Coordonees, cible: Coordonees, directionsPossible: Array<number>): number {
-    if (directionsPossible.length === 1) {return directionsPossible[0]; }
+  public choisiLaPlusCourteDirection(
+    positionActuelle: Coordonees,
+    cible: Coordonees,
+    directionsPossible: Array<number>,
+    fuite: boolean = false
+  ): number {
+    if (directionsPossible.length === 1) { return directionsPossible[0]; }
     let possibiliteChoisie: number;
     let distanceChoisie: number;
 
@@ -25,12 +30,16 @@ export class FantomeService {
         possibiliteChoisie = possibilite;
         distanceChoisie = distanceChallenge;
       }
-      if (distanceChallenge < distanceChoisie) {
+      if ((distanceChallenge < distanceChoisie && !fuite) || (distanceChallenge > distanceChoisie && fuite)) {
         possibiliteChoisie = possibilite;
         distanceChoisie = distanceChallenge;
       }
     }
     return possibiliteChoisie;
+  }
+
+  public directionOpposee(direction: number): number {
+    return (direction + 180) >= 360 ? direction - 180 : direction + 180;
   }
 
   public cacluleLeNombreDeCases(positionActuelle: Coordonees, cible: Coordonees, compte: number = 0): number {
@@ -88,7 +97,7 @@ export class FantomeService {
     if (expectedDirection === 270) {
       return {
         latitude: positionActuelle.latitude,
-        longitude: (positionActuelle.longitude - increment < 0 ) ? 27 : positionActuelle.longitude - increment,
+        longitude: (positionActuelle.longitude - increment < 0) ? 27 : positionActuelle.longitude - increment,
         direction: expectedDirection,
         vitesse: positionActuelle.vitesse
       };
@@ -101,7 +110,11 @@ export class FantomeService {
       cible = pacman;
     }
     //    console.debug('rouge', cible);
-    return ser.choisiLaPlusCourteDirection(fantome.coordonees, cible, ser.calculeDirectionsPossible(fantome.coordonees));
+    if (fantome.poursuitMode === -1) {
+      return ser.choisiLaPlusCourteDirection(fantome.coordonees, pacman, ser.calculeDirectionsPossible(fantome.coordonees), true);
+    } else {
+      return ser.choisiLaPlusCourteDirection(fantome.coordonees, cible, ser.calculeDirectionsPossible(fantome.coordonees));
+    }
   }
 
   public piegeur(fantome: FantomeModel, pacman: Coordonees, ser: FantomeService, option?: Coordonees): number { // pinky
@@ -110,7 +123,11 @@ export class FantomeService {
       cible = ser.projetePosition(pacman, pacman.direction, 4);
     }
     //    console.debug('rose', cible);
-    return ser.choisiLaPlusCourteDirection(fantome.coordonees, cible, ser.calculeDirectionsPossible(fantome.coordonees));
+    if (fantome.poursuitMode === -1) {
+      return ser.choisiLaPlusCourteDirection(fantome.coordonees, pacman, ser.calculeDirectionsPossible(fantome.coordonees), true);
+    } else {
+      return ser.choisiLaPlusCourteDirection(fantome.coordonees, cible, ser.calculeDirectionsPossible(fantome.coordonees));
+    }
   }
 
   public timide(fantome: FantomeModel, pacman: Coordonees, ser: FantomeService, option?: Coordonees): number { // inky
@@ -123,8 +140,12 @@ export class FantomeService {
         longitude: pacman.longitude + 2 * (projetedPacman.longitude - option.longitude)
       };
     }
-//    console.debug('bleu', cible);
-    return ser.choisiLaPlusCourteDirection(fantome.coordonees, cible, ser.calculeDirectionsPossible(fantome.coordonees));
+    //    console.debug('bleu', cible);
+    if (fantome.poursuitMode === -1) {
+      return ser.choisiLaPlusCourteDirection(fantome.coordonees, pacman, ser.calculeDirectionsPossible(fantome.coordonees), true);
+    } else {
+      return ser.choisiLaPlusCourteDirection(fantome.coordonees, cible, ser.calculeDirectionsPossible(fantome.coordonees));
+    }
   }
 
   public dedaignant(fantome: FantomeModel, pacman: Coordonees, ser: FantomeService, option?: Coordonees): number { // clyde
@@ -132,8 +153,12 @@ export class FantomeService {
     if (fantome.poursuitMode === 1) {
       if (ser.cacluleLeNombreDeCases(fantome.coordonees, pacman) > 8) { cible = pacman; }
     }
-//    console.debug('orange', cible);
-    return ser.choisiLaPlusCourteDirection(fantome.coordonees, cible, ser.calculeDirectionsPossible(fantome.coordonees));
+    //    console.debug('orange', cible);
+    if (fantome.poursuitMode === -1) {
+      return ser.choisiLaPlusCourteDirection(fantome.coordonees, pacman, ser.calculeDirectionsPossible(fantome.coordonees), true);
+    } else {
+      return ser.choisiLaPlusCourteDirection(fantome.coordonees, cible, ser.calculeDirectionsPossible(fantome.coordonees));
+    }
   }
 
 }

@@ -54,4 +54,16 @@ constructor() {
   ilYaUnMur(position: Coordonees): boolean {
     return this.mursListe.indexOf(this.cases[position.latitude][position.longitude]) >= 0;
   }
+
+  ilYaUnePacgum(position: Coordonees): boolean {
+    return this.cases[position.latitude][position.longitude] === 'PN';
+  }
+
+  ilYaUneSuperPacgum(position: Coordonees): boolean {
+    return this.cases[position.latitude][position.longitude] === 'PS';
+  }
+
+  videUneCase(position: Coordonees) {
+    this.cases[position.latitude][position.longitude] = '  ';
+  }
 }

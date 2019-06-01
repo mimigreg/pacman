@@ -3,7 +3,7 @@ import { FantomeModel } from './models/fantome.model';
 import { Coordonees } from './models/coordonees.model';
 import { FantomeService } from './fantome.service';
 import { CarteService } from './carte.service';
-import { of, timer } from 'rxjs';
+import { of, timer, Subscription } from 'rxjs';
 import { concatMap, delay } from 'rxjs/operators';
 
 @Component({
@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   pinky: FantomeModel;
   inky: FantomeModel;
   clyde: FantomeModel;
+  modeSubscription: Subscription;
 
   constructor(private fantomeService: FantomeService, private carteService: CarteService) {
     this.blinky = new FantomeModel (
@@ -59,14 +60,17 @@ export class AppComponent implements OnInit {
         );
       }
     });
+    this.activeLeChangementDeMode();
+  }
+
+  activeLeChangementDeMode() {
     // Changement de mode rode/poursuite
-    of(7000, 20000, 7000, 20000, 5000, 20000, 5000).pipe(
+    this.modeSubscription = of(7000, 20000, 7000, 20000, 5000, 20000, 5000).pipe(
       concatMap(val => of('change').pipe(delay(val)))
     ).subscribe((val) => {
       for (const fantome of this.fantomes) {
         fantome.poursuitMode = fantome.poursuitMode ? 0 : 1 ;
-        const oppositeDirection = fantome.coordonees.direction + 180;
-        fantome.coordonees.direction = (oppositeDirection) >= 360 ? fantome.coordonees.direction - 180 : fantome.coordonees.direction + 180;
+        fantome.coordonees.direction = this.fantomeService.directionOpposee(fantome.coordonees.direction);
       }
     });
   }
@@ -89,6 +93,18 @@ export class AppComponent implements OnInit {
     const positionCandidate = this.fantomeService.projetePosition(this.pacman, this.pacman.direction);
     if (!this.carteService.ilYaUnMur(positionCandidate)) {
       this.pacman = positionCandidate;
+      if (this.carteService.ilYaUnePacgum(positionCandidate)) {
+        this.carteService.videUneCase(positionCandidate);
+      }
+      if (this.carteService.ilYaUneSuperPacgum(positionCandidate)) {
+        this.carteService.videUneCase(positionCandidate);
+        for (const fantome of this.fantomes) {
+          fantome.poursuitMode = -1 ;
+          fantome.coordonees.direction = this.fantomeService.directionOpposee(fantome.coordonees.direction);
+          this.modeSubscription.unsubscribe();
+          this.activeLeChangementDeMode();
+        }
+      }
     }
   }
 }
