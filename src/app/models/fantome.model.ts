@@ -1,5 +1,26 @@
-export interface FantomeModel {
+import { Coordonees } from './coordonees.model';
+import { FantomeService } from '../fantome.service';
+
+export class FantomeModel {
   couleur: string;
-  x: number;
-  y: number;
+  coordonees: Coordonees;
+  coordoneesRode: Coordonees;
+  poursuitMode: number;
+
+  constructor(
+    couleur: string,
+    coordoneesInitiale: Coordonees,
+    coordoneesRode: Coordonees,
+    carractere: (fantome: Coordonees, pacman: Coordonees, rode: Coordonees, ser: FantomeService, option?: Coordonees) => number
+  ) {
+    this.couleur = couleur;
+    this.coordonees = coordoneesInitiale;
+    this.coordoneesRode = coordoneesRode;
+    this.poursuitMode = 0; // 0 = rode, 1 = poursuite, -1 = panique
+    this.calculNextDirection = carractere;
+  }
+
+  calculNextDirection(fantome: Coordonees, pacman: Coordonees, rode: Coordonees, ser: FantomeService, option?: Coordonees): number {
+    throw new Error('Pas de caractère défini');
+  }
 }

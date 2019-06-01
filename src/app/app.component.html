@@ -1,10 +1,9 @@
 <div>
+  <pacman-pacman [direction]="pacman.direction" [ngStyle]="{'position':'absolute', 'top':logicalToAbsolute(pacman).latitude+'px', 'left':logicalToAbsolute(pacman).longitude+'px'}"></pacman-pacman>
+  <pacman-fantome *ngFor="let unFantome of fantomes" [couleur]="unFantome.couleur" [ngStyle]="{'position':'absolute', 'top':logicalToAbsolute(unFantome.coordonees).latitude+'px', 'left':logicalToAbsolute(unFantome.coordonees).longitude+'px'}"></pacman-fantome>
   <pacman-labyrinthe></pacman-labyrinthe>
   <div class="ligne">
-    <pacman-pacman direction="H"></pacman-pacman>
-    <pacman-pacman direction="B"></pacman-pacman>
-    <pacman-pacman direction="G"></pacman-pacman>
-    <pacman-pacman direction="D"></pacman-pacman>
-    <pacman-fantome *ngFor="let unFantome of fantomes" [couleur]="unFantome.couleur"></pacman-fantome>
+    <pacman-pacman direction="270"></pacman-pacman>
+    <pacman-pacman direction="270"></pacman-pacman>
   </div>
 </div>

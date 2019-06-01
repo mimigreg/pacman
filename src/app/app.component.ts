@@ -1,21 +1,82 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FantomeModel } from './models/fantome.model';
+import { Coordonees } from './models/coordonees.model';
+import { FantomeService } from './fantome.service';
+import { CarteService } from './carte.service';
+import { of, timer, Observable } from 'rxjs';
 
 @Component({
   selector: 'pacman-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'pacman';
   fantomes: Array<FantomeModel>;
+  pacman: Coordonees;
+  blinky: FantomeModel;
+  pinky: FantomeModel;
+  inky: FantomeModel;
+  clyde: FantomeModel;
 
-  constructor() {
-    this.fantomes = [
-      {couleur: '#FF0000', x: 0, y: 0},
-      {couleur: '#00FFFF', x: 0, y: 0},
-      {couleur: '#FFCCCC', x: 0, y: 0},
-      {couleur: '#FFBB00', x: 0, y: 0}
-    ];
+  constructor(private fantomeService: FantomeService, private carteService: CarteService) {
+    this.blinky = new FantomeModel (
+      '#FF0000',
+      {direction: 720, latitude: 11, longitude: 13, vitesse: 10},
+      {latitude: -3, longitude: 25},
+      this.fantomeService.chasseur
+    );
+    this.pinky = new FantomeModel (
+      '#00FFFF',
+      {direction: 720, latitude: 14, longitude: 11, vitesse: 10},
+      {latitude: -3, longitude: 2},
+      this.fantomeService.piegeur
+    );
+    this.inky = new FantomeModel (
+      '#FFCCCC',
+      {direction: 720, latitude: 14, longitude: 13, vitesse: 10},
+      {latitude: 32, longitude: 27},
+      this.fantomeService.timide
+    );
+    this.clyde = new FantomeModel (
+      '#FFBB00',
+      {direction: 720, latitude: 14, longitude: 15, vitesse: 10},
+      {latitude: 32, longitude: 0},
+      this.fantomeService.dedaignant
+    );
+    this.fantomes = [this.blinky, this.pinky, this. inky, this.clyde];
+    this.pacman = {direction: 90, latitude: 23, longitude: 13};
+  }
+
+  ngOnInit() {
+    timer(0, 200).subscribe(() => {
+      for (const fantome of this.fantomes) {
+        fantome.coordonees = this.fantomeService.projetePosition(
+          fantome.coordonees,
+          fantome.calculNextDirection(fantome.coordonees, this.pacman, fantome.coordoneesRode, this.fantomeService, this.blinky.coordonees)
+        );
+      }
+    });
+  }
+
+  logicalToAbsolute(logical: Coordonees): Coordonees {
+    return {
+      direction: logical.direction,
+      latitude: (16 * (logical.latitude)) - 6,
+      longitude: (16 * (logical.longitude)) - 6,
+      vitesse: logical.vitesse
+    };
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  deplacePacMan(keyEvent: KeyboardEvent) {
+    if (keyEvent.key === 'ArrowUp') {this.pacman.direction = 0; }
+    if (keyEvent.key === 'ArrowDown') {this.pacman.direction = 180; }
+    if (keyEvent.key === 'ArrowLeft') {this.pacman.direction = 270; }
+    if (keyEvent.key === 'ArrowRight') {this.pacman.direction = 90; }
+    const positionCandidate = this.fantomeService.projetePosition(this.pacman, this.pacman.direction);
+    if (!this.carteService.ilYaUnMur(positionCandidate)) {
+      this.pacman = positionCandidate;
+    }
   }
 }
