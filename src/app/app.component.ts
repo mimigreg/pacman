@@ -13,6 +13,7 @@ import { concatMap, delay } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
   title = 'pacman';
+  nbPacgumMangee: number;
   fantomes: Array<FantomeModel>;
   pacman: Coordonees;
   blinky: FantomeModel;
@@ -29,14 +30,14 @@ export class AppComponent implements OnInit {
       this.fantomeService.chasseur
     );
     this.pinky = new FantomeModel (
-      '#00FFFF',
-      {direction: 720, latitude: 14, longitude: 11, vitesse: 10},
+      '#FFCCCC',
+      {direction: 0, latitude: 13, longitude: 13, vitesse: 10},
       {latitude: -3, longitude: 2},
       this.fantomeService.piegeur
     );
     this.inky = new FantomeModel (
-      '#FFCCCC',
-      {direction: 720, latitude: 14, longitude: 13, vitesse: 10},
+      '#00FFFF',
+      {direction: 720, latitude: 14, longitude: 11, vitesse: 10},
       {latitude: 32, longitude: 27},
       this.fantomeService.timide
     );
@@ -48,6 +49,7 @@ export class AppComponent implements OnInit {
     );
     this.fantomes = [this.blinky, this.pinky, this. inky, this.clyde];
     this.pacman = {direction: 90, latitude: 23, longitude: 13};
+    this.nbPacgumMangee = 0;
   }
 
   ngOnInit() {
@@ -63,6 +65,17 @@ export class AppComponent implements OnInit {
     this.activeLeChangementDeMode();
   }
 
+  reinitialise() {
+    this.blinky.coordonees = {direction: 720, latitude: 11, longitude: 13, vitesse: 10};
+    this.pinky.coordonees = {direction: 0, latitude: 13, longitude: 13, vitesse: 10};
+    this.inky.coordonees = {direction: 720, latitude: 14, longitude: 11, vitesse: 10};
+    this.clyde.coordonees = {direction: 720, latitude: 14, longitude: 15, vitesse: 10};
+    this.inky.libreDeSortir = false;
+    this.clyde.libreDeSortir = false;
+    this.pacman = {direction: 90, latitude: 23, longitude: 13};
+    this.nbPacgumMangee = 0;
+  }
+
   activeLeChangementDeMode() {
     // Changement de mode rode/poursuite
     this.modeSubscription = of(7000, 20000, 7000, 20000, 5000, 20000, 5000).pipe(
@@ -73,6 +86,7 @@ export class AppComponent implements OnInit {
         fantome.coordonees.direction = this.fantomeService.directionOpposee(fantome.coordonees.direction);
       }
     });
+    this.pinky.libreDeSortir = true;
   }
 
   logicalToAbsolute(logical: Coordonees): Coordonees {
@@ -95,9 +109,23 @@ export class AppComponent implements OnInit {
       this.pacman = positionCandidate;
       if (this.carteService.ilYaUnePacgum(positionCandidate)) {
         this.carteService.videUneCase(positionCandidate);
+        this.nbPacgumMangee ++;
+        if (this.nbPacgumMangee > 30) {this.inky.libreDeSortir = true; }
+        if (this.nbPacgumMangee > 81) {this.clyde.libreDeSortir = true; }
+        if (this.nbPacgumMangee === 244) { // Gangné !
+          this.carteService.reinitialise();
+          this.reinitialise();
+        }
       }
       if (this.carteService.ilYaUneSuperPacgum(positionCandidate)) {
         this.carteService.videUneCase(positionCandidate);
+        this.nbPacgumMangee ++;
+        if (this.nbPacgumMangee > 30) {this.inky.libreDeSortir = true; }
+        if (this.nbPacgumMangee > 81) {this.clyde.libreDeSortir = true; }
+        if (this.nbPacgumMangee === 244) { // Gangné !
+          this.carteService.reinitialise();
+          this.reinitialise();
+        }
         for (const fantome of this.fantomes) {
           fantome.poursuitMode = -1 ;
           fantome.coordonees.direction = this.fantomeService.directionOpposee(fantome.coordonees.direction);

@@ -6,6 +6,7 @@ export class FantomeModel {
   coordonees: Coordonees;
   coordoneesRode: Coordonees;
   poursuitMode: number;
+  libreDeSortir: boolean;
 
   constructor(
     couleur: string,
@@ -17,6 +18,7 @@ export class FantomeModel {
     this.coordonees = coordoneesInitiale;
     this.coordoneesRode = coordoneesRode;
     this.poursuitMode = 0; // 0 = rode, 1 = poursuite, -1 = panique
+    this.libreDeSortir = false;
     this.calculNextDirection = carractere;
   }
 

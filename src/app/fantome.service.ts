@@ -59,11 +59,11 @@ export class FantomeService {
     }
   }
 
-  public calculeDirectionsPossible(position: Coordonees): Array<number> {
+  public calculeDirectionsPossible(position: Coordonees, libre: boolean = false): Array<number> {
     const directions = [];
     for (const direction of [0, 90, 180, 270]) {
       if (Math.abs(position.direction - direction) !== 180) { // Pas le droit de faire demi tour
-        if (!this.carteService.ilYaUnMur(this.projetePosition(position, direction))) { directions.push(direction); } // Pas de mur
+        if (!this.carteService.ilYaUnMur(this.projetePosition(position, direction), libre)) { directions.push(direction); } // Pas de mur
       }
     }
     return directions;
@@ -126,7 +126,8 @@ export class FantomeService {
     if (fantome.poursuitMode === -1) {
       return ser.choisiLaPlusCourteDirection(fantome.coordonees, pacman, ser.calculeDirectionsPossible(fantome.coordonees), true);
     } else {
-      return ser.choisiLaPlusCourteDirection(fantome.coordonees, cible, ser.calculeDirectionsPossible(fantome.coordonees));
+      return ser.choisiLaPlusCourteDirection(
+        fantome.coordonees, cible, ser.calculeDirectionsPossible(fantome.coordonees, fantome.libreDeSortir));
     }
   }
 
@@ -144,7 +145,8 @@ export class FantomeService {
     if (fantome.poursuitMode === -1) {
       return ser.choisiLaPlusCourteDirection(fantome.coordonees, pacman, ser.calculeDirectionsPossible(fantome.coordonees), true);
     } else {
-      return ser.choisiLaPlusCourteDirection(fantome.coordonees, cible, ser.calculeDirectionsPossible(fantome.coordonees));
+      return ser.choisiLaPlusCourteDirection(
+        fantome.coordonees, cible, ser.calculeDirectionsPossible(fantome.coordonees, fantome.libreDeSortir));
     }
   }
 
@@ -157,7 +159,8 @@ export class FantomeService {
     if (fantome.poursuitMode === -1) {
       return ser.choisiLaPlusCourteDirection(fantome.coordonees, pacman, ser.calculeDirectionsPossible(fantome.coordonees), true);
     } else {
-      return ser.choisiLaPlusCourteDirection(fantome.coordonees, cible, ser.calculeDirectionsPossible(fantome.coordonees));
+      return ser.choisiLaPlusCourteDirection(
+        fantome.coordonees, cible, ser.calculeDirectionsPossible(fantome.coordonees, fantome.libreDeSortir));
     }
   }
 
