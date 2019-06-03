@@ -1,27 +1,22 @@
 # Pacman
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.0.
+Essai de développement d'un PAC-MAN en respectant, de façon la plus proche possible, la version initiale.
+Je me base principalement sur ce site : https://gameinternals.com/post/2072558330/understanding-pac-man-ghost-behavior
+Pour sa description des comportements de fantômes et ses screenshots.
+Il faudra que je trouve une autre spec complémentaires pour les aspects score, apparition des fruits (d'ailleurs à quoi servent-ils ??), règles de vies supplémentaires... s'il y en a... bref toutes les features que je ne connait pas forcément.
 
-## Development server
+Histoire de corser un peu le jeu, je tente 
+- Je me base sur Angular. Je tenterai, une fois une v1 finie et si je ne suis pas lassé, l'aventure avec VueJS et ReactJS.
+- Tout coder en français... sans accent (tout terme anglais au dela du langage et du framework est une erreur de ma part, vous pouvez me le signaler si le coeur vous en dit)
+- Faire un rendu, le plus possible en CSS (Dessin des personnages, décors, ...)
+- Rédaction des tests à la fin (Attention à tout nouveau codeur : ne jamais coder ses tests à la fin ! Ce que je fait a pour conséquences que je prenne un temps fou à coder des tests et que mon code soit très peu testable), histoire de voir si j'arrive à coder quelque chose de testable "sans ceinture". (Croyez moi, c'est très très dur)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Une fois le jeu quasi fonctionnel, je tenterais des optimisations histoire de le faire le moins gourmand possible et le plus maintenable possible
 
-## Code scaffolding
+Il s'agit principalement d'un exercice :
+- Plutôt ludique pour moi qui devrait m'occuper un bon moment avant que je me lasse.
+- Un bon entrainement, et un moyen de faire le point.
+- Après relecture, un bon exercice d'autocritique et d'identification d'antipatterns qui se seront glissées.
+- Qui sait, si vous lisez ceci, un moyen d'échanger et pour moi d'apprendre et m'améliorer.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+SPOILER : Le code commence pas mal à bruler les yeux, et je n'ai pas achevé les fonctionnionalités principales...
