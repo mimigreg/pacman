@@ -1,9 +1,24 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-<link rel="stylesheet" href="dist/pacman/styles.css"></head>
+<link rel="stylesheet" href="https://raw.githubusercontent.com/mimigreg/pacman/master/dist/pacman/styles.css"></head>
   <pacman-root></pacman-root>
-<script src="dist/pacman/runtime-es2015.js" type="module"></script><script src="dist/pacman/runtime-es5.js" nomodule defer></script><script src="dist/pacman/polyfills-es5.js" nomodule defer></script><script src="dist/pacman/polyfills-es2015.js" type="module"></script><script src="dist/pacman/vendor-es2015.js" type="module"></script><script src="dist/pacman/vendor-es5.js" nomodule defer></script><script src="dist/pacman/main-es2015.js" type="module"></script><script src="dist/pacman/main-es5.js" nomodule defer></script>
+<script src="https://raw.githubusercontent.com/mimigreg/pacman/master/dist/pacman/runtime-es2015.js" type="module">
+</script>
+<script src="https://raw.githubusercontent.com/mimigreg/pacman/master/dist/pacman/runtime-es5.js" nomodule defer>
+</script>
+<script src="https://raw.githubusercontent.com/mimigreg/pacman/master/dist/pacman/polyfills-es5.js" nomodule defer>
+</script>
+<script src="https://raw.githubusercontent.com/mimigreg/pacman/master/dist/pacman/polyfills-es2015.js" type="module">
+</script>
+<script src="https://raw.githubusercontent.com/mimigreg/pacman/master/dist/pacman/vendor-es2015.js" type="module">
+</script>
+<script src="https://raw.githubusercontent.com/mimigreg/pacman/master/dist/pacman/vendor-es5.js" nomodule defer>
+</script>
+<script src="https://raw.githubusercontent.com/mimigreg/pacman/master/dist/pacman/main-es2015.js" type="module">
+</script>
+<script src="https://raw.githubusercontent.com/mimigreg/pacman/master/dist/pacman/main-es5.js" nomodule defer>
+</script>
 
 # Pacman
 
