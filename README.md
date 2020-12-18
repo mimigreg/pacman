@@ -1,3 +1,17 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Pacman</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="dist/pacman/styles.css"></head>
+<body>
+  <pacman-root></pacman-root>
+<script src="dist/pacman/runtime-es2015.js" type="module"></script><script src="dist/pacman/runtime-es5.js" nomodule defer></script><script src="dist/pacman/polyfills-es5.js" nomodule defer></script><script src="dist/pacman/polyfills-es2015.js" type="module"></script><script src="dist/pacman/vendor-es2015.js" type="module"></script><script src="dist/pacman/vendor-es5.js" nomodule defer></script><script src="dist/pacman/main-es2015.js" type="module"></script><script src="dist/pacman/main-es5.js" nomodule defer></script></body>
+</html>
+
 # Pacman
 
 Essai de développement d'un PAC-MAN en respectant, de façon la plus proche possible, la version initiale.
@@ -5,7 +19,8 @@ Je me base principalement sur ce site : https://gameinternals.com/post/207255833
 Pour sa description des comportements de fantômes et ses screenshots.
 Il faudra que je trouve une autre spec complémentaires pour les aspects score, apparition des fruits (d'ailleurs à quoi servent-ils ??), règles de vies supplémentaires... s'il y en a... bref toutes les features que je ne connait pas forcément.
 
-Histoire de corser un peu le jeu, je tente 
+Histoire de corser un peu le jeu, je tente
+
 - Je me base sur Angular. Je tenterai, une fois une v1 finie et si je ne suis pas lassé, l'aventure avec VueJS et ReactJS.
 - Tout coder en français... sans accent (tout terme anglais au dela du langage et du framework est une erreur de ma part, vous pouvez me le signaler si le coeur vous en dit)
 - Faire un rendu, le plus possible en CSS (Dessin des personnages, décors, ...)
@@ -14,6 +29,7 @@ Histoire de corser un peu le jeu, je tente
 Une fois le jeu quasi fonctionnel, je tenterais des optimisations histoire de le faire le moins gourmand possible et le plus maintenable possible
 
 Il s'agit principalement d'un exercice :
+
 - Plutôt ludique pour moi qui devrait m'occuper un bon moment avant que je me lasse.
 - Un bon entrainement, et un moyen de faire le point.
 - Après relecture, un bon exercice d'autocritique et d'identification d'antipatterns qui se seront glissées.
