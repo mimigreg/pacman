@@ -1,16 +1,9 @@
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Pacman</title>
   <base href="/">
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="stylesheet" href="dist/pacman/styles.css"></head>
-<body>
   <pacman-root></pacman-root>
-<script src="dist/pacman/runtime-es2015.js" type="module"></script><script src="dist/pacman/runtime-es5.js" nomodule defer></script><script src="dist/pacman/polyfills-es5.js" nomodule defer></script><script src="dist/pacman/polyfills-es2015.js" type="module"></script><script src="dist/pacman/vendor-es2015.js" type="module"></script><script src="dist/pacman/vendor-es5.js" nomodule defer></script><script src="dist/pacman/main-es2015.js" type="module"></script><script src="dist/pacman/main-es5.js" nomodule defer></script></body>
-</html>
+<script src="dist/pacman/runtime-es2015.js" type="module"></script><script src="dist/pacman/runtime-es5.js" nomodule defer></script><script src="dist/pacman/polyfills-es5.js" nomodule defer></script><script src="dist/pacman/polyfills-es2015.js" type="module"></script><script src="dist/pacman/vendor-es2015.js" type="module"></script><script src="dist/pacman/vendor-es5.js" nomodule defer></script><script src="dist/pacman/main-es2015.js" type="module"></script><script src="dist/pacman/main-es5.js" nomodule defer></script>
 
 # Pacman
 
