@@ -1,7 +1,7 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-<link rel="stylesheet" href="https://raw.githubusercontent.com/mimigreg/pacman/master/dist/pacman/styles.css"></head>
+<link rel="stylesheet" href="https://raw.githubusercontent.com/mimigreg/pacman/master/dist/pacman/styles.css">
   <pacman-root></pacman-root>
 <script src="https://raw.githubusercontent.com/mimigreg/pacman/master/dist/pacman/runtime-es2015.js" type="module">
 </script>
